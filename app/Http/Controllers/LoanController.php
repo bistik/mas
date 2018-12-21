@@ -26,7 +26,7 @@ class LoanController extends Controller
         $loan->monthly_repayment = compute_monthly_repayment($request->amount, $request->interest_rate, $request->duration);
         $loan->save();
 
-        return response()->json(['message' => 'Loan successfully created!'], 200);
+        return response()->json(['message' => 'Loan successfully created!', 'id' => $loan->id], 200);
     }
 
     /**

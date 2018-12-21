@@ -22,17 +22,17 @@ class Loan extends Model
 
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = number_format($value, 2, '.', '');
+        $this->attributes['amount'] = round($value, 2);
     }
 
     public function setInterestRateAttribute($value)
     {
-        $this->attributes['interest_rate'] = number_format($value, 2, '.', '');
+        $this->attributes['interest_rate'] = round($value, 2);
     }
 
     public function setArrangementFeeAttribute($value)
     {
-        $this->attributes['arrangement_fee'] = number_format($value, 2, '.', '');
+        $this->attributes['arrangement_fee'] = round($value, 2);
     }
 
     public function setCurrencyAttribute($value)

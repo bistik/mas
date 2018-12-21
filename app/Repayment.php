@@ -19,9 +19,4 @@ class Repayment extends Model
     {
         $this->belongsTo('App\Loan');
     }
-
-    public function setPaymentAttribute($value)
-    {
-        $this->attributes['payment'] = number_format($value, 2, '.', '');
-    }
 }

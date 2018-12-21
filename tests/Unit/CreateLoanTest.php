@@ -13,7 +13,7 @@ class CreateLoanTest extends TestCase
 
     public function setUp() {
         parent::setUp();
-        //$this->withoutExceptionHandling();
+        $this->artisan('passport:install');
     }
 
     public function testInvalid()

@@ -46,7 +46,7 @@ class ShowLoansTest extends TestCase
         $this->assertEquals($json->loans[0]->amount, $loan->amount);
         $this->assertEquals($json->loans[0]->duration, $loan->duration);
         $this->assertEquals($json->loans[0]->repayment_frequency, $loan->repayment_frequency);
-        $this->assertEquals($json->loans[0]->monthly_repayment, $loan->monthly_repayment);
-        $this->assertEquals($json->loans[0]->interest_rate, $loan->interest_rate);
+        $this->assertEquals($json->loans[0]->monthly_repayment, round($loan->monthly_repayment, 2));
+        $this->assertEquals($json->loans[0]->interest_rate, round($loan->interest_rate, 2));
     }
 }
