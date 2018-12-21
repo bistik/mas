@@ -14,10 +14,12 @@ class CreateRepayment extends FormRequest
      */
     public function authorize()
     {
+        /*
         if ($this->loan_id && is_numeric($this->loan_id) && $loan = Loan::whereId($this->loan_id)->first()) {
             // loan_id belongs to requesting user
             return $loan && $this->user()->id == $loan->user_id;
         }
+         */
         return true; // let rules handle it
     }
 

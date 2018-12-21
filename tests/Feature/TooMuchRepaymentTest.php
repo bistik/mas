@@ -16,7 +16,7 @@ class TooMuchRepaymentTest extends TestCase
     {
         parent::setUp();
         $this->artisan('passport:install');
-        // $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
     }
 
     public function testTooMuch()
@@ -29,17 +29,15 @@ class TooMuchRepaymentTest extends TestCase
             'duration' => 3
         ]);
         $user->loans()->save($loan);
-        $i = 3;
-        while($i > 0) {
-            $response = $this->actingAs($user, 'api')
-                             ->json('POST', route('repayment.store', [
-                                 'amount' => 344.51,
-                                 'loan_id' => $loan->id
-                             ]));
 
-            $response->assertStatus(200)
-                        ->assertJsonStructure(['message', 'balance']);
-            $i--;
+        for ($i=0; $i<3; $i++) {
+            $response = $this->actingAs($user, 'api')
+                         ->json('POST', route('repayment.store', [
+                             'amount' => 344.51,
+                             'loan_id' => $loan->id
+                         ]))
+                         ->assertStatus(200)
+                            ->assertJsonStructure(['message', 'balance']);
         }
 
         // 4th payment (already paid at this point)

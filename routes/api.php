@@ -30,5 +30,6 @@ Route::group(['prefix' => 'loans', 'middleware' => ['auth:api']], function () {
 
 Route::group(['prefix' => 'repayments', 'middleware' => ['auth:api']], function () {
     Route::post('/', 'RepaymentController@store')->name('repayment.store');
-    Route::get('/', 'RepaymentController@all')->name('repayment.all');
+    //Route::get('/{loanId}', 'RepaymentController@all')->name('repayment.all')->where(['loanId' => '/\d+/']);
+    Route::get('/{id}', 'RepaymentController@repayments');
 });
