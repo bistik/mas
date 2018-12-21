@@ -29,14 +29,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
     public function loans()
     {
         return $this->hasMany('App\Loan');
     }
 
-    public function createLoan(Loan $loan)
+    public function repayments()
     {
-        $this->loans()->save($loan);
+        return $this->hasMany('App\Repayment');
     }
 }

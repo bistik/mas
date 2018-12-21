@@ -28,7 +28,8 @@ class CreateLoan extends FormRequest
             'duration' => ['required', 'numeric', 'min:1'],
             'repayment_frequency' => ['required', 'numeric', 'min:1'],
             'interest_rate' => ['required', 'regex:/^\d*(\.\d{1,2})?$/', 'min:1'],
-            'arrangement_fee' => ['regex:/^\d*(\.\d{1,2})?$/']
+            'arrangement_fee' => ['regex:/^\d*(\.\d{1,2})?$/'],
+            'currency' => ['regex:[a-zA-Z]{3}']
         ];
     }
 }

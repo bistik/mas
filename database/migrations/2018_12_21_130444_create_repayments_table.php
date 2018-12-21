@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLoansTable extends Migration
+class CreateRepaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,24 @@ class CreateLoansTable extends Migration
      */
     public function up()
     {
-        Schema::create('loans', function (Blueprint $table) {
+        Schema::create('repayments', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->decimal('amount', 10, 2);
-            $table->decimal('monthly_repayment', 8, 2);
-            $table->decimal('interest_rate', 5, 2);
-            $table->unsignedTinyInteger('duration'); // months
-            $table->unsignedTinyInteger('repayment_frequency')->default(1); // monthly
-            $table->decimal('arrangement_fee', 8, 2)->nullable();
-            $table->string('currency', 5)->default('USD');
+            $table->unsignedInteger('loan_id');
+            $table->decimal('payment', 10, 2);
+            $table->decimal('interest', 10, 2);
+            $table->decimal('principal', 10, 2);
+            $table->decimal('start_balance', 10, 2);
+            $table->decimal('end_balance', 10, 2);
             $table->timestamps();
 
             $table->foreign('user_id')
                     ->references('id')
                     ->on('users');
+
+            $table->foreign('loan_id')
+                    ->references('id')
+                    ->on('loans');
         });
     }
 
@@ -38,6 +41,6 @@ class CreateLoansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('loans');
+        Schema::dropIfExists('repayments');
     }
 }

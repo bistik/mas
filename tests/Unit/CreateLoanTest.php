@@ -45,7 +45,7 @@ class CreateLoanTest extends TestCase
                                             'amount' => 10000.00,
                                             'interest_rate' => 10.00,
                                             'duration' => 12,
-                                            'total' => 11047.13,
+                                            'monthly_repayment' => 879.16,
                                             'repayment_frequency' => 1]);
     }
 }

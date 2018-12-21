@@ -20,7 +20,10 @@ class LoanController extends Controller
         if ($request->arrangement_fee) {
            $loan->arrangement_fee = $request->arrangement_fee; 
         }
-        $loan->total = compute_total($request->amount, $request->duration, $request->interest_rate);
+        if ($request->currency) {
+            $loan->currency = $request->currency;
+        }
+        $loan->monthly_repayment = compute_monthly_repayment($request->amount, $request->interest_rate, $request->duration);
         $loan->save();
 
         return response()->json(['message' => 'Loan successfully created!'], 200);

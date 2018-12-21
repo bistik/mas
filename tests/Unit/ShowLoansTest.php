@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
+use App\Loan;
 
 class ShowLoansTest extends TestCase
 {
@@ -31,16 +32,8 @@ class ShowLoansTest extends TestCase
     public function testWithLoans()
     {
         $user = factory(User::class)->create();
-
-        $response = $this->actingAs($user, 'api')
-                         ->json('POST', route('loan.store', [
-                             'amount' => 5000,
-                             'interest_rate' => 10,
-                             'duration' => 6,
-                             'repayment_frequency' => 1,
-                         ]));
-
-        $response->assertStatus(200);
+        $loan = factory(Loan::class)->make();
+        $user->loans()->save($loan);
 
         $response = $this->actingAs($user, 'api')
                          ->json('GET', route('loan.all'));
@@ -50,9 +43,10 @@ class ShowLoansTest extends TestCase
         $this->assertFalse(empty($json));
         $this->assertFalse(empty($json->loans));
         $this->assertEquals($json->loans[0]->user_id, $user->id);
-        $this->assertEquals($json->loans[0]->amount, 5000.00);
-        $this->assertEquals($json->loans[0]->duration, 6);
-        $this->assertEquals($json->loans[0]->repayment_frequency, 1);
-        $this->assertEquals($json->loans[0]->interest_rate, 10.00);
+        $this->assertEquals($json->loans[0]->amount, $loan->amount);
+        $this->assertEquals($json->loans[0]->duration, $loan->duration);
+        $this->assertEquals($json->loans[0]->repayment_frequency, $loan->repayment_frequency);
+        $this->assertEquals($json->loans[0]->monthly_repayment, $loan->monthly_repayment);
+        $this->assertEquals($json->loans[0]->interest_rate, $loan->interest_rate);
     }
 }
